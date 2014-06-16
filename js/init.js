@@ -12,12 +12,6 @@ var wordList =  {
 		this.value.splice(index,1);
 	}
 };
-
-
-
-
-
-
 var $selectedWord; //Keeps track of selected word html area
 var idSelectedWord; //Keeps track of the "id" of selected word html area
 var idxSelectedWord; // Keeps track of the selected word index in wordList
@@ -121,17 +115,17 @@ function pronounceSelectedWordfn(){
 	}
 	
 function wordPracticefn(){
-	console.log("enter Practice fn");
 	$wordinputwrapper = $("#wordinputwrapper");
 	$wordinputwrapper.remove();
 	$wordpracticewrapper.css("visibility","visible");
 	idxPracticeWord = idxPracticeWord+1;
+	wordCount = "Words Left:  " + String(wordList.value.length-idxPracticeWord)+" out of a total of "+String(wordList.value.length)+ " words.";
+	$("#wordsLeft").text(wordCount);
 	$("#checkanotherWord").prop("disabled", true);
 	audioSource = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+wordList.value[idxPracticeWord].spelling.replace(" ","+");
 	htmlAudioArea = "<audio id=\"audioArea\" controls ><source id=\"audioSource\" src="+ audioSource +" ></audio>";
 	$("#audioArea").remove();  //Remove previous Audio controls
 	$("#practiceWord").before(htmlAudioArea);
-	console.log("exit Practice fn");
 }
 
 
