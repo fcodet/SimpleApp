@@ -51,7 +51,6 @@ function AddWordHTMLandEvents (wordSpelling){
 	//Make the text bold if mouse is above the word and back to normal text is mouse is not
 		$("#word"+String(wordList.value.length)).mouseenter( function() {
 			$(this).css("font-weight","bold");
-			
 		});
 		$("#word"+String(wordList.value.length)).mouseleave( function() {
 			$(this).css("font-weight","normal");
