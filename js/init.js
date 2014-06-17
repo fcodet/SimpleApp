@@ -1,6 +1,6 @@
 //Start with an empty list on the page
-
-var wordList =  {
+if ((wordList === undefined) || (wordList)){
+	var wordList =  {
 	value : [],
 	addWord : function(word) {
 		this.value.push(word);
@@ -12,6 +12,7 @@ var wordList =  {
 		this.value.splice(index,1);
 	}
 };
+}
 var $selectedWord; //Keeps track of selected word html area
 var idSelectedWord; //Keeps track of the "id" of selected word html area
 var idxSelectedWord; // Keeps track of the selected word index in wordList
@@ -28,7 +29,7 @@ function addGenericWordSpelling(wordSpelling) {
 	var localWord = {
 			spelling:String(wordSpelling),
 			difficulty:1,
-			pronunciation:"https://dictionary.cambridge.org/media/british/us_pron/h/hel/hello/hello.mp3"
+			pronunciationFile: "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+wordSpelling.replace(" ","+"), //Get pronuniciation from google translate			
 	};
 	wordList.addWord(localWord);
 }
@@ -45,6 +46,7 @@ function AddWordHTMLandEvents (wordSpelling){
 	//Make the text bold if mouse is above the word and back to normal text is mouse is not
 		$("#word"+String(wordList.value.length)).mouseenter( function() {
 			$(this).css("font-weight","bold");
+			
 		});
 		$("#word"+String(wordList.value.length)).mouseleave( function() {
 			$(this).css("font-weight","normal");
@@ -102,10 +104,9 @@ function removeSelectedWordfn(){
 //This function is triggered when the user wants to hear the pronunciation of a word selected from the display area on the web page by pressing the "Pronounce" button
 function pronounceSelectedWordfn(){
 	$("#audioArea").remove();
-	audioSourcessl = "https://ssl.gstatic.com/dictionary/static/sounds/de/0/"+wordList.value[idxSelectedWord].spelling+".mp3";
-	audioSource = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+wordList.value[idxSelectedWord].spelling.replace(" ","+"); 
-	//htmlAudioArea = "<audio id=\"audioArea\" autoplay ><source id=\"audioSource\" src="+audioSource+" ></audio>";
-	htmlAudioArea = "<audio id=\"audioArea\" autoplay ><source id=\"audioSource\" src="+audioSource+" ></audio>";
+	//audioSourcessl = "https://ssl.gstatic.com/dictionary/static/sounds/de/0/"+wordList.value[idxSelectedWord].spelling+".mp3";
+	//audioSource = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+wordList.value[idxSelectedWord].spelling.replace(" ","+"); 
+	htmlAudioArea = "<audio id=\"audioArea\" autoplay ><source id=\"audioSource\" src="+wordList.value[idxSelectedWord].pronunciationFile+" ></audio>";
 	$("#pronounceSelectedWord").after(htmlAudioArea);
 }
 
@@ -122,8 +123,9 @@ function wordPracticefn(){
 	wordCount = "Words Left:  " + String(wordList.value.length-idxPracticeWord)+" out of a total of "+String(wordList.value.length)+ " words.";
 	$("#wordsLeft").text(wordCount);
 	$("#checkanotherWord").prop("disabled", true);
-	audioSource = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+wordList.value[idxPracticeWord].spelling.replace(" ","+");
-	htmlAudioArea = "<audio id=\"audioArea\" controls ><source id=\"audioSource\" src="+ audioSource +" ></audio>";
+	//audioSource = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+wordList.value[idxPracticeWord].spelling.replace(" ","+");
+	//htmlAudioArea = "<audio id=\"audioArea\" controls ><source id=\"audioSource\" src="+ audioSource +" ></audio>";
+	htmlAudioArea = "<audio id=\"audioArea\" controls ><source id=\"audioSource\" src="+ wordList.value[idxPracticeWord].pronunciationFile +" ></audio>";
 	$("#audioArea").remove();  //Remove previous Audio controls
 	$("#practiceWord").before(htmlAudioArea);
 }

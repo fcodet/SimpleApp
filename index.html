@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Frederic | Designer</title>
+    <title>SpellingBee</title>
     <link rel="stylesheet" href="css/normalise.css">
     <link href='http://fonts.googleapis.com/css?family=Changa+One|Open+Sans:400,400italic,700,700italic,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/main.css">
@@ -12,29 +12,36 @@
   <body>
     <header>
       <a href="index.html" id="logo">
-        <h1>Frederic</h1>
-        <h2>Designer</h2>
+        <h1>SpellingBee</h1>
       </a>
       <nav>
         <ul>
-          <li><a href="index.html" class="selected">Seb's spelling</a></li>
+          <li><a href="index.html" class="selected">Home</a></li>
           <li><a href="about.html">About</a></li>  
           <li><a href="contact.html">Contact</a></li>  
         </ul>
       </nav>
     </header>
     <div id="wrapper">
+		  
       <section>
 		<ul id="spelling">
+			<li> <a href="AddWords.html">Create New List</a></li>
+			<p>or</p>
+			<li> Choose from list: 
+				<select id="spellingLists">
+					<option value="Animals">Animals</option>
+					<option value="Plants">Plants</option>
+					<option value="Rivers">Rivers</option>
+				</select>
+			</li>
 			<li> <a href="AddWords.html">Add New Words</a></li>
-			<li> <a href="about.html">Practice</a> </li>
+			<li> <a href="AddWords.html">Practice</a> </li>
 			<li> <a href="contact.html">View Spelling List </a></li>
 		</ul>
 
       </section>
       <footer>
-        <a href="http://twitter.com"><img src="img/twitter-wrap.png" alt="Twitter Logo" class="social-icon"></a>
-        <a href="http://facebook.com"><img src="img/facebook-wrap.png" alt="Facebook Logo" class="social-icon"></a>
         <p>&copy; 2014 Frederic.</p>
       </footer>
     </div>

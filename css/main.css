@@ -259,6 +259,9 @@ PAGE:  Word List Creation
 	display: block;
 }
 
+#spellingLists {
+	display: inline;
+}	
 
 
 
