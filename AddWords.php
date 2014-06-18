@@ -20,8 +20,9 @@
 	ChromePhp::log($spellingList);	
 	?>
 	
-	<script type="text/javascript">
-		//create mySpellingList javascript variable which will be used in a inti.js javascript called at the bottom of the page
+
+	<script type="text/javascript" charset="utf-8">
+	//create mySpellingList javascript variable which will be used in a inti.js javascript called at the bottom of the page
 		var mySpellingList = <?php 
 		$echostring = "";
 		$echostring = $echostring . "["; 
@@ -34,9 +35,12 @@
 			}
 		}
 		ChromePhp::log("echostring:"  .  $echostring);
-		echo $echostring
+		echo $echostring;
 		?>
+		console.log(mySpellingList);
 	</script>
+	
+	
 
   <head>
     <meta charset="utf-8">
@@ -46,6 +50,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/responsive.css">
     <meta name="vimport" content="width-device-width, initial-scale-1.0">
+    <script src="js/init.js" type="text/javascript" charset="utf-8"></script>
 
   </head>
   <body>
@@ -94,7 +99,7 @@
     </div>
 
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/init.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/buttonactions.js" type="text/javascript" charset="utf-8"></script>
 	<!-- <script src="data/readWordsFile.js" type="text/javascript" charset="utf-8"></script> -->
 	<!-- <script src="js/addWords.js" type="text/javascript" charset="utf-8"></script> -->
   </body>

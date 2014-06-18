@@ -29,7 +29,7 @@ if ($handle = opendir($spellingFileDirectory)) {
     closedir($handle);
 }
 
-//Create Audio from file ////////////////////////Test
+//Create Audio from file ////////////////////////Test//////////////////////////////////////////////////////////////
 function downloadMP3($url,$file)
 {
     $ch = curl_init();  
@@ -37,7 +37,8 @@ function downloadMP3($url,$file)
     $res = curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
     ChromePhp::log($res);
     $output=curl_exec($ch);
-    ChromePhp::log($output);
+    $output=curl_exec($ch);
+    ChromePhp::log("mp3 download:".$output);
     curl_close($ch);
 	
     if($output === false)   
@@ -50,7 +51,40 @@ function downloadMP3($url,$file)
     return true;
 }
 
-downloadMP3("http://translate.google.com/translate_tts?ie=UTF-8&amp;tl=en&amp;q=like","somemp3.mp3");
+downloadMP3("http://translate.google.com/translate_tts?ie=UTF-8&amp;tl=en&amp;q=seine","somemp3.mp3");
+
+//Create Audio from file ////////////////////////Test//////////////////////////////////////////////////////////////
+
+ $text = "seine";
+
+// Name of the MP3 file generated using the MD5 hash
+   $file  = md5($text);
+
+// Save the MP3 file in this folder with the .mp3 extension 
+   $file = $file .".mp3";
+   if($file) {
+     echo "created";
+   } else {
+     echo "not created";
+   }
+
+// If the MP3 file exists, do not create a new request
+   if (!file_exists($file)) {
+//	$mp3 = false;
+//	while ($mp3 !== false) {
+		 $mp3 = file_get_contents(
+			'http://translate.google.com/translate_tts?q=' . $text);
+		 echo "hello";
+		 ChromePhp::log("mp3");
+		 ChromePhp::log($mp3);
+//		}
+     file_put_contents($file, $mp3);
+   } else {
+     echo "hii";
+   }
+
+
+
 
 
 
@@ -83,7 +117,7 @@ $firstValue = "Animals!!";
   <head>
     <meta charset="utf-8">
     <title>SpellingBee</title>
-    <link rel="stylesheet" href="css/normalise.css">
+    <link rel="stylesheet" href="css/normalize.css">
     <link href='http://fonts.googleapis.com/css?family=Changa+One|Open+Sans:400,400italic,700,700italic,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -118,7 +152,7 @@ $firstValue = "Animals!!";
 				</select>
 			</li>
 			<li> <a href="AddWords.php?mySpellingListName=Rivers">Add New Words</a></li>
-			<li> <a href="AddWords.php">Practice</a> </li>
+			<li> <a href="c:\Users\frederic\Dropbox\Projects\HTML Stuff\Simple Template\AddWords.html">Practice</a> </li>
 			<li> <a href="contact.html">View Spelling List </a></li>
 		</ul>
 
