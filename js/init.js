@@ -1,3 +1,4 @@
+
 //Start with an empty list on the page
 if ((wordList === undefined) || (wordList)){
 	var wordList =  {
@@ -13,23 +14,14 @@ if ((wordList === undefined) || (wordList)){
 	}
 };
 }
-var $selectedWord; //Keeps track of selected word html area
-var idSelectedWord; //Keeps track of the "id" of selected word html area
-var idxSelectedWord; // Keeps track of the selected word index in wordList
-var $wordinputwrapper = $("wordinputwrapper"); //Remember the area where words are being input
-var $wordpracticewrapper = $("#wordpracticewrapper"); //Remember the area where words get practiced
-var idxPracticeWord=-1; // Keeps track of the practiced word index in wordList
-
-//If no word is selected, make sure the remove and pronounce buttons are disabled
-$("#removeSelectedWord").prop("disabled", ($selectedWord === undefined));
-$("#pronounceSelectedWord").prop("disabled", ($selectedWord === undefined));
+console.log("java mySpellingList = "+ mySpellingList);
 
 //Add a word 'object' to the wordList just using its spelling, and using some default of calculated parameters for the rest (i.e difficulty, pronunciation)
 function addGenericWordSpelling(wordSpelling) {
 	var localWord = {
-			spelling:String(wordSpelling),
+			spelling:String(wordSpelling).toLowerCase(),
 			difficulty:1,
-			pronunciationFile: "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+wordSpelling.replace(" ","+"), //Get pronuniciation from google translate			
+			pronunciationFile: "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+String(wordSpelling).toLowerCase().replace(" ","+"), //Get pronunciation from google translate			
 	};
 	wordList.addWord(localWord);
 }
@@ -76,10 +68,30 @@ function AddWordHTMLandEvents (wordSpelling){
 
 }
 
+//Build word list from mySpellingList 
+if (mySpellingList != []) {
+	for (i=0;i<mySpellingList.length;i++) {
+		AddWordHTMLandEvents(mySpellingList[i]);	
+	}
+}
+
 AddWordHTMLandEvents("Look");
 AddWordHTMLandEvents("Like");
 AddWordHTMLandEvents("An");
 AddWordHTMLandEvents("Angel");
+
+
+
+var $selectedWord; //Keeps track of selected word html area
+var idSelectedWord; //Keeps track of the "id" of selected word html area
+var idxSelectedWord; // Keeps track of the selected word index in wordList
+var $wordinputwrapper = $("wordinputwrapper"); //Remember the area where words are being input
+var $wordpracticewrapper = $("#wordpracticewrapper"); //Remember the area where words get practiced
+var idxPracticeWord=-1; // Keeps track of the practiced word index in wordList
+
+//If no word is selected, make sure the remove and pronounce buttons are disabled
+$("#removeSelectedWord").prop("disabled", ($selectedWord === undefined));
+$("#pronounceSelectedWord").prop("disabled", ($selectedWord === undefined));
 
 //This function is triggered when the user want to manually add a word from the input box and presses the "Add" button, it then createse a word object from the spelling in the text box
 // and then adds it to the wordList and adds it to the display area
@@ -106,7 +118,8 @@ function pronounceSelectedWordfn(){
 	$("#audioArea").remove();
 	//audioSourcessl = "https://ssl.gstatic.com/dictionary/static/sounds/de/0/"+wordList.value[idxSelectedWord].spelling+".mp3";
 	//audioSource = "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+wordList.value[idxSelectedWord].spelling.replace(" ","+"); 
-	htmlAudioArea = "<audio id=\"audioArea\" autoplay ><source id=\"audioSource\" src="+wordList.value[idxSelectedWord].pronunciationFile+" ></audio>";
+	//htmlAudioArea = "<audio id=\"audioArea\" autoplay ><source id=\"audioSource\" src=\""+wordList.value[idxSelectedWord].pronunciationFile+"\" ></audio>";
+	htmlAudioArea = "<audio id=\"audioArea\" autoplay buffered ><source id=\"audioSource\" src=\""+wordList.value[idxSelectedWord].pronunciationFile+"\" ></audio>";
 	$("#pronounceSelectedWord").after(htmlAudioArea);
 }
 
