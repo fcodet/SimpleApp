@@ -28,7 +28,7 @@ if ($handle = opendir($spellingFileDirectory)) {
 	
     closedir($handle);
 }
-
+/*
 //Create Audio from file ////////////////////////Test//////////////////////////////////////////////////////////////
 function downloadMP3($url,$file)
 {
@@ -50,9 +50,9 @@ function downloadMP3($url,$file)
  
     return true;
 }
-
-downloadMP3("http://translate.google.com/translate_tts?ie=UTF-8&amp;tl=en&amp;q=seine","somemp3.mp3");
-
+*/
+//downloadMP3("http://translate.google.com/translate_tts?ie=UTF-8&amp;tl=en&amp;q=seine","somemp3.mp3");
+/*
 //Create Audio from file ////////////////////////Test//////////////////////////////////////////////////////////////
 
  $text = "seine";
@@ -83,7 +83,7 @@ downloadMP3("http://translate.google.com/translate_tts?ie=UTF-8&amp;tl=en&amp;q=
      echo "hii";
    }
 
-
+*/
 
 
 
@@ -125,7 +125,7 @@ $firstValue = "Animals!!";
   </head>
   <body>
     <header>
-      <a href="index.html" id="logo">
+      <a href="index.php" id="logo">
         <h1>SpellingBee</h1>
       </a>
       <nav>
@@ -143,16 +143,20 @@ $firstValue = "Animals!!";
 			<li> <a href="AddWords.html">Create New List</a></li>
 			<p>or</p>
 			<li> Choose from list: 
-				<select id="spellingLists">
+			<form id="chooseSpellingListForm" name="chooseSpellingListForm" method="post"> 
+			<!-- <form id="chooseSpellingListForm" name="chooseSpellingListForm" action="AddWords.php"> -->
+				<select name="spellingLists" id="spellingLists" value="Select from:">
 					<?php
 					for ($i=0; $i < count($mySpellingFiles); $i++) {
-						echo "<option value=\"".$mySpellingFiles[i]."\">".$mySpellingFiles[$i]."</option>";
+						echo "<option id=".$mySpellingFiles[$i]." value=\"".$mySpellingFiles[$i]."\">".$mySpellingFiles[$i]."</option>";
 					}
 					?>
 				</select>
+				<input type="submit" id="addWordsToListButton" name="addWordsToListButton" value="Add Words"/>
+			</form>
 			</li>
-			<li> <a href="AddWords.php?mySpellingListName=Rivers">Add New Words</a></li>
-			<li> <a href="c:\Users\frederic\Dropbox\Projects\HTML Stuff\Simple Template\AddWords.html">Practice</a> </li>
+			<li> <a href="AddWords.php">Add New Words</a></li>
+			<li> <a href="AddWords.html">Practice</a> </li>
 			<li> <a href="contact.html">View Spelling List </a></li>
 		</ul>
 
@@ -161,6 +165,8 @@ $firstValue = "Animals!!";
         <p>&copy; 2014 Frederic.</p>
       </footer>
     </div>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/indexpagebuttons.js" type="text/javascript" charset="utf-8"></script>
 
   </body>
 </html>

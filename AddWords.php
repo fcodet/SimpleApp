@@ -5,38 +5,58 @@
 	<?php
 	include('ChromePhp.php');
 	//Pass the name of the list into a PHP variable
-	$mySpellingListName =  $_GET['mySpellingListName'];
-	//Create the actual PHP array containing the spelling words in the list from the file
-	$fileName = "SpellingList_" . $mySpellingListName . ".txt";
-	ChromePhp::log($fileName);
-	$myFile=fopen($fileName,"r+") or die("Unable to open file");
-	$spellingList=[];
-	while(!feof($myFile)) {
-	  $readWord = fgets($myFile);
-	  $readWord = str_replace(array("\r", "\n"), '', $readWord); //remove the newline character
-	  array_push($spellingList, $readWord);
-	 }
-	fclose($myFile);
-	ChromePhp::log($spellingList);	
+	$spellingList=array();
+	if (isset($_GET['mySpellingListName'])==true) {
+		$mySpellingListName =  $_GET['mySpellingListName'];
+		ChromePhp::log("Spelling List not empty!");	
+		//Create the actual PHP array containing the spelling words in the list from the file
+		$fileName = "SpellingList_" . $mySpellingListName . ".txt";
+		ChromePhp::log($fileName);
+		$myFile=fopen($fileName,"r+") or die("Unable to open file");
+		while(!feof($myFile)) {
+		  $readWord = fgets($myFile);
+		  $readWord = str_replace(array("\r", "\n"), '', $readWord); //remove the newline character
+		  array_push($spellingList, $readWord);
+		 }
+		fclose($myFile);
+		ChromePhp::log("in the loop");	
+		}
+	ChromePhp::log("The spelling list size is : " . count($spellingList));
+	if (count($spellingList) != 0) {ChromePhp::log("Spelling list is not empty");
+		} else {
+		ChromePhp::log("Spelling list empty");
+		}
 	?>
 	
-
+	
 	<script type="text/javascript" charset="utf-8">
-	//create mySpellingList javascript variable which will be used in a inti.js javascript called at the bottom of the page
-		var mySpellingList = <?php 
-		$echostring = "";
-		$echostring = $echostring . "["; 
-		for ($i=0; $i < count($spellingList); $i++) {
-			if ($i < (count($spellingList)-1)) {
-				$echostring = $echostring . "\"".$spellingList[$i]."\"".",";
-			}	
-			else {
-				$echostring = $echostring . "\"".$spellingList[$i]."\""."];";
+	if (<?php if (count($spellingList) != 0) {echo "true";} else {echo "false";} ?>) {
+			//create mySpellingList javascript variable which will be used in a init.js javascript called at the bottom of the page
+			var mySpellingList = <?php 
+			$echostring = "";
+			$echostring = $echostring . "["; 
+			if (count($spellingList)!=0) {
+				for ($i=0; $i < count($spellingList); $i++) {
+					if ($i < (count($spellingList)-1)) {
+						$echostring = $echostring . "\"".$spellingList[$i]."\"".",";
+					}	
+					else {
+						$echostring = $echostring . "\"".$spellingList[$i]."\""."];";
+					}
+				}
 			}
-		}
-		ChromePhp::log("echostring:"  .  $echostring);
-		echo $echostring;
-		?>
+			else {
+				$echostring = "[];"; 
+			}
+			ChromePhp::log("echostring:"  .  $echostring);
+			echo $echostring;
+			?>
+			console.log("Javascript mySpellingList is not empty");
+			}
+			else {
+			var mySpellingList = [];
+			console.log("Javascript mySpellingList is empty");
+			}
 		console.log(mySpellingList);
 	</script>
 	

@@ -45,7 +45,7 @@ if (mySpellingList != []) {
 		AddWordHTMLandEvents(mySpellingList[i]);	
 	}
 }
-
+/*
 addGenericWordSpelling("Look");
 AddWordHTMLandEvents("Look");
 addGenericWordSpelling("Like");
@@ -54,7 +54,7 @@ addGenericWordSpelling("An");
 AddWordHTMLandEvents("An");
 addGenericWordSpelling("Angel");
 AddWordHTMLandEvents("Angel");
-
+*/
 
 
 
