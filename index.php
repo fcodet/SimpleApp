@@ -143,20 +143,16 @@ $firstValue = "Animals!!";
 			<li> <a href="AddWords.html">Create New List</a></li>
 			<p>or</p>
 			<li> Choose from list: 
-			<form id="chooseSpellingListForm" name="chooseSpellingListForm" method="post"> 
-			<!-- <form id="chooseSpellingListForm" name="chooseSpellingListForm" action="AddWords.php"> -->
 				<select name="spellingLists" id="spellingLists" value="Select from:">
-					<?php
-					for ($i=0; $i < count($mySpellingFiles); $i++) {
-						echo "<option id=".$mySpellingFiles[$i]." value=\"".$mySpellingFiles[$i]."\">".$mySpellingFiles[$i]."</option>";
-					}
-					?>
+						<?php
+						for ($i=0; $i < count($mySpellingFiles); $i++) {
+							echo "<option id=".$mySpellingFiles[$i]." value=\"".$mySpellingFiles[$i]."\">".$mySpellingFiles[$i]."</option>";
+						}
+						?>
 				</select>
-				<input type="submit" id="addWordsToListButton" name="addWordsToListButton" value="Add Words"/>
-			</form>
 			</li>
-			<li> <a href="AddWords.php">Add New Words</a></li>
-			<li> <a href="AddWords.html">Practice</a> </li>
+			<li> <a id="addWordsLink" href="AddWords.php">Add New Words</a></li>
+			<li> <a id="praticeWordsLink" ref="AddWords.php">Practice</a> </li>
 			<li> <a href="contact.html">View Spelling List </a></li>
 		</ul>
 

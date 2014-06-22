@@ -26,10 +26,19 @@
 		} else {
 		ChromePhp::log("Spelling list empty");
 		}
+	//Find out if we are in "addWord mode" or "practice mode"
+	if (isset($_GET['practice'])==true) {
+		$practiceMode = true;
+	}
+	else {
+		$practiceMode = false;
+	}
 	?>
 	
 	
 	<script type="text/javascript" charset="utf-8">
+	//Create javascript variables from PHP variable information 
+	var practiceMode = <?php if ($practiceMode==true) {echo "true;";} else {echo "false;";} ?>
 	if (<?php if (count($spellingList) != 0) {echo "true";} else {echo "false";} ?>) {
 			//create mySpellingList javascript variable which will be used in a init.js javascript called at the bottom of the page
 			var mySpellingList = <?php 
@@ -75,7 +84,7 @@
   </head>
   <body>
     <header>
-      <a href="index.html" id="logo">
+      <a href="index.php" id="logo">
         <h1>SpellingBee</h1>
       </a>
       <nav>

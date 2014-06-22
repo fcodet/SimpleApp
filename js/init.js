@@ -26,11 +26,11 @@ function addGenericWordSpelling(wordSpelling) {
 	};
 	wordList.addWord(localWord);
 }
-
+console.log("count of wordList in init.js is:"+wordList.value.length);
 //Build word list from mySpellingList 
-if (mySpellingList != []) {
-	for (i=0;i<mySpellingList.length;i++) {
-		addGenericWordSpelling(mySpellingList[i]);	
-	}
-}
+// if (mySpellingList != []) {
+	// for (i=0;i<mySpellingList.length;i++) {
+		// addGenericWordSpelling(mySpellingList[i]);	
+	// }
+// }
 

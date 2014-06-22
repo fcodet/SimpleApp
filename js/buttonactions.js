@@ -1,3 +1,5 @@
+console.log("count of wordList in buttonaction.js is:"+wordList.value.length);
+
 //Similar to the previous function addGenericWordSpelling(wordSpelling), it adds a word object using its spelling, but also inserts it the display area, and associates all events
 // with the word html object, such as click, mouseenter, mouseleave etc...
 function AddWordHTMLandEvents (wordSpelling){
@@ -37,7 +39,8 @@ function AddWordHTMLandEvents (wordSpelling){
 
 
 }
-
+console.log("my WordList is:" + wordList);
+console.log("snd attempt count of wordList in buttonaction.js is:"+wordList.value.length);
 //Build word list from mySpellingList 
 if (mySpellingList != []) {
 	for (i=0;i<mySpellingList.length;i++) {
@@ -121,7 +124,9 @@ function wordPracticefn(){
 	$("#practiceWord").before(htmlAudioArea);
 }
 
-
+if (practiceMode == true) {
+	wordPracticefn();
+}
 $("#addWords").click(addWordinTextBoxfn);
 $("#removeSelectedWord").click(removeSelectedWordfn);
 $("#pronounceSelectedWord").click(pronounceSelectedWordfn);
