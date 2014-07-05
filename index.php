@@ -139,6 +139,7 @@ $firstValue = "Animals!!";
     <div id="wrapper">
 		  
       <section>
+		
 		<ul id="spelling">
 			<li> <a href="AddWords.html">Create New List</a></li>
 			<p>or</p>

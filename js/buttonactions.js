@@ -1,11 +1,13 @@
+
 //Add a word 'object' to the wordList just using its spelling, and using some default of calculated parameters for the rest (i.e difficulty, pronunciation)
-function addGenericWordSpelling(wordSpelling) {
+function addGenericWordSpelling(wordSpelling,wordMp3) {
 	var localWord = {
 			spelling:String(wordSpelling).toLowerCase(),
 			difficulty:1,
 			//pronunciationFile: "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+String(wordSpelling).toLowerCase().replace(" ","+"), //Get pronunciation from google translate			
-			pronunciationFile: "http://api.voicerss.org/?key=ccf4d8e04f0c4202970bd88194909b4f&src="+String(wordSpelling).toLowerCase().replace(" ","+")+"&hl=en-gb", //Use voicerss.org instead of google
+			//pronunciationFile: "http://api.voicerss.org/?key=ccf4d8e04f0c4202970bd88194909b4f&src="+String(wordSpelling).toLowerCase().replace(" ","+")+"&hl=en-gb", //Use voicerss.org instead of google
 			//pronunciationFile: "http://www.macmillandictionary.com/media/british/uk_pron/h/hel/hello/hello_British_English_pronunciation.mp3" //Try MacMillan
+			pronunciationFile: wordMp3
 	};
 	wordList.addWord(localWord);
 }
@@ -61,7 +63,8 @@ function AddWordHTMLandEvents (wordSpelling){
 //Build word list from mySpellingList 
 if (mySpellingList != []) {
 	for (i=0;i<mySpellingList.length;i++) {
-		addGenericWordSpelling(mySpellingList[i]);
+		//addGenericWordSpelling(mySpellingList[i]);
+		addGenericWordSpelling(mySpellingList[i],mySpellingListMp3s[i]);
 		AddWordHTMLandEvents(mySpellingList[i]);	
 	}
 }

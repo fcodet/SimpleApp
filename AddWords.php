@@ -2,10 +2,12 @@
 
 
 <html>
+	
 	<?php
 	include('ChromePhp.php');
 	//Pass the name of the list into a PHP variable
 	$spellingList=array();
+	$spellingListMp3s=array();
 	if (isset($_GET['mySpellingListName'])==true) {
 		$mySpellingListName =  $_GET['mySpellingListName'];
 		ChromePhp::log("Spelling List not empty!");	
@@ -17,6 +19,42 @@
 		  $readWord = fgets($myFile);
 		  $readWord = str_replace(array("\r", "\n"), '', $readWord); //remove the newline character
 		  array_push($spellingList, $readWord);
+		/*  
+		//Get the mp3 pronunciation file from the web
+			ChromePhp::log($readWord);
+			//$wordUrl = "http://www.macmillandictionary.com/dictionary/british/".$readWord ;
+			$wordUrl = 'http://www.macmillandictionary.com/dictionary/british/hello';
+			ChromePhp::log($wordUrl);
+			$c = curl_init($wordUrl);
+		*/	
+		//Get the mp3 pronunciation file from the web
+			//$wordUrl = 'http://www.macmillandictionary.com/dictionary/british/hello';
+			//$c = curl_init('http://www.macmillandictionary.com/dictionary/british/hello');
+			$wordUrl = "http://www.macmillandictionary.com/dictionary/british/".strtolower($readWord) ;
+			ChromePhp::log("LINK");
+			ChromePhp::log($wordUrl);
+			$c = curl_init($wordUrl);
+			
+			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+			$html = curl_exec($c);
+			
+			
+			if (curl_error($c))
+				die(curl_error($c));
+			// Get the status code
+			$status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+			$mp3linkpos0  = strpos($html, "data-src-mp3");
+			$mp3linkpos1  = strpos($html, "data-src-ogg");
+			ChromePhp::log($mp3linkpos0);
+			ChromePhp::log($mp3linkpos1);
+			ChromePhp::log($html[$mp3linkpos0+14]);
+			ChromePhp::log($html[$mp3linkpos1-3]);
+			$mp3link = substr($html, $mp3linkpos0+14, $mp3linkpos1-3 - ($mp3linkpos0+14)+1);
+			ChromePhp::log($mp3link);
+			curl_close($c);
+		array_push($spellingListMp3s, $mp3link);
+		//   
+		  
 		 }
 		fclose($myFile);
 		ChromePhp::log("in the loop");	
@@ -35,6 +73,8 @@
 	}
 	?>
 	
+	
+
 	
 	<script type="text/javascript" charset="utf-8">
 	//Create javascript variables from PHP variable information 
@@ -67,6 +107,34 @@
 			console.log("Javascript mySpellingList is empty");
 			}
 		console.log(mySpellingList);
+	if (<?php if (count($spellingList) != 0) {echo "true";} else {echo "false";} ?>) {
+		//create mySpellingListMp3s javascript variable which will be used in a init.js javascript called at the bottom of the page
+			var mySpellingListMp3s = <?php 
+			$echostring = "";
+			$echostring = $echostring . "["; 
+			if (count($spellingListMp3s)!=0) {
+				for ($i=0; $i < count($spellingListMp3s); $i++) {
+					if ($i < (count($spellingListMp3s)-1)) {
+						$echostring = $echostring . "\"".$spellingListMp3s[$i]."\"".",";
+					}	
+					else {
+						$echostring = $echostring . "\"".$spellingListMp3s[$i]."\""."];";
+					}
+				}
+			}
+			else {
+				$echostring = "[];"; 
+			}
+			ChromePhp::log("echostring:"  .  $echostring);
+			echo $echostring;
+			?>
+			console.log("Javascript spellingListMp3s is not empty");
+			}
+			else {
+			var spellingListMp3s = [];
+			console.log("Javascript spellingListMp3s is empty");
+			}
+		console.log(spellingListMp3s);
 	</script>
 	
 	
@@ -131,5 +199,32 @@
 	<script src="js/buttonactions.js" type="text/javascript" charset="utf-8"></script>
 	<!-- <script src="data/readWordsFile.js" type="text/javascript" charset="utf-8"></script> -->
 	<!-- <script src="js/addWords.js" type="text/javascript" charset="utf-8"></script> -->
+	<?php
+	/*
+	//Get the mp3 pronunciation file from the web
+	  
+			$c = curl_init('http://www.macmillandictionary.com/dictionary/british/hello');
+			
+			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+			$html = curl_exec($c);
+			
+			
+			if (curl_error($c))
+				die(curl_error($c));
+			// Get the status code
+			$status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+			$mp3linkpos0  = strpos($html, "data-src-mp3");
+			$mp3linkpos1  = strpos($html, "data-src-ogg");
+			ChromePhp::log($mp3linkpos0);
+			ChromePhp::log($mp3linkpos1);
+			ChromePhp::log($html[$mp3linkpos0+14]);
+			ChromePhp::log($html[$mp3linkpos1-3]);
+			$mp3link = substr($html, $mp3linkpos0+14, $mp3linkpos1-3 - ($mp3linkpos0+14)+1);
+			ChromePhp::log($mp3link);
+			curl_close($c);
+		
+		//   
+	*/
+	?>
   </body>
 </html>
