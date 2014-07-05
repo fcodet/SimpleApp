@@ -14,23 +14,6 @@ if ((wordList === undefined) || (wordList)){
 		}
 	};
 }
-console.log("java mySpellingList = "+ mySpellingList);
+//console.log("java mySpellingList = "+ mySpellingList);
 
-//Add a word 'object' to the wordList just using its spelling, and using some default of calculated parameters for the rest (i.e difficulty, pronunciation)
-function addGenericWordSpelling(wordSpelling) {
-	var localWord = {
-			spelling:String(wordSpelling).toLowerCase(),
-			difficulty:1,
-			//pronunciationFile: "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+String(wordSpelling).toLowerCase().replace(" ","+"), //Get pronunciation from google translate			
-			pronunciationFile: "http://api.voicerss.org/?key=ccf4d8e04f0c4202970bd88194909b4f&src="+String(wordSpelling).toLowerCase().replace(" ","+")+"&hl=en-gb", //Use voicerss.org instead of google
-	};
-	wordList.addWord(localWord);
-}
-console.log("count of wordList in init.js is:"+wordList.value.length);
-//Build word list from mySpellingList 
-// if (mySpellingList != []) {
-	// for (i=0;i<mySpellingList.length;i++) {
-		// addGenericWordSpelling(mySpellingList[i]);	
-	// }
-// }
 

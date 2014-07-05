@@ -1,4 +1,22 @@
-console.log("count of wordList in buttonaction.js is:"+wordList.value.length);
+//Add a word 'object' to the wordList just using its spelling, and using some default of calculated parameters for the rest (i.e difficulty, pronunciation)
+function addGenericWordSpelling(wordSpelling) {
+	var localWord = {
+			spelling:String(wordSpelling).toLowerCase(),
+			difficulty:1,
+			//pronunciationFile: "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q="+String(wordSpelling).toLowerCase().replace(" ","+"), //Get pronunciation from google translate			
+			pronunciationFile: "http://api.voicerss.org/?key=ccf4d8e04f0c4202970bd88194909b4f&src="+String(wordSpelling).toLowerCase().replace(" ","+")+"&hl=en-gb", //Use voicerss.org instead of google
+			//pronunciationFile: "http://www.macmillandictionary.com/media/british/uk_pron/h/hel/hello/hello_British_English_pronunciation.mp3" //Try MacMillan
+	};
+	wordList.addWord(localWord);
+}
+console.log("count of wordList in init.js is:"+wordList.value.length);
+//Build word list from mySpellingList 
+// if (mySpellingList != []) {
+	// for (i=0;i<mySpellingList.length;i++) {
+		// addGenericWordSpelling(mySpellingList[i]);	
+	// }
+// }
+
 
 //Similar to the previous function addGenericWordSpelling(wordSpelling), it adds a word object using its spelling, but also inserts it the display area, and associates all events
 // with the word html object, such as click, mouseenter, mouseleave etc...
@@ -39,8 +57,7 @@ function AddWordHTMLandEvents (wordSpelling){
 
 
 }
-console.log("my WordList is:" + wordList);
-console.log("snd attempt count of wordList in buttonaction.js is:"+wordList.value.length);
+
 //Build word list from mySpellingList 
 if (mySpellingList != []) {
 	for (i=0;i<mySpellingList.length;i++) {
@@ -48,18 +65,6 @@ if (mySpellingList != []) {
 		AddWordHTMLandEvents(mySpellingList[i]);	
 	}
 }
-/*
-addGenericWordSpelling("Look");
-AddWordHTMLandEvents("Look");
-addGenericWordSpelling("Like");
-AddWordHTMLandEvents("Like");
-addGenericWordSpelling("An");
-AddWordHTMLandEvents("An");
-addGenericWordSpelling("Angel");
-AddWordHTMLandEvents("Angel");
-*/
-
-
 
 var $selectedWord; //Keeps track of selected word html area
 var idSelectedWord; //Keeps track of the "id" of selected word html area
@@ -88,6 +93,22 @@ function removeSelectedWordfn(){
 	//Remove the word from the html code displaying the selected word in  the list
 	$selectedWord.remove();
 	$selectedWord = undefined;
+	//Rename the "ids" of the words inthe html code (i.e if the list is {id=word1 lion, id=word2 cat, id=word3 dog} and we remove cat we want to chage the html code from
+	// {id=word1 lion, id=word3 dog} to {id=word1 lion, id=word2 dog}
+	//So we have to cycle through the children of the div id="listDisplayArea" and rename those ids
+	console.log( "listDisplayArea Children:"+$("listDisplayArea").children()); 
+	index = 1;
+	$("#listDisplayArea").children().each( function () {
+		console.log($(this).attr("id"));
+		$(this).attr("id","word"+String(index));
+		index++;
+	});
+	
+	$("#listDisplayArea").children().each( function () {
+		console.log($(this).attr("id"));
+	});
+
+	
 	//If no word is selected, make sure the remove and pronounce buttons are disabled
 	$("#removeSelectedWord").prop("disabled", ($selectedWord === undefined));
 	$("#pronounceSelectedWord").prop("disabled", ($selectedWord === undefined));
