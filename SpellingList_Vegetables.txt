@@ -1,5 +1,5 @@
-Cucumber
-Carrot
-Beans
-Broccoli
-Salad
+cucumber
+carrot
+bean
+broccoli
+salad

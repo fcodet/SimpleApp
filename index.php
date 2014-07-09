@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <?php 
-include('ChromePhp.php');
+//include('ChromePhp.php');
 $spellingFilePrefix = "SpellingList_";
 $spellingFileSuffix = ".txt";
 $spellingFileDirectory = ".";
 $pageaction = "";
 
 
-$mySpellingFiles=[];
-$mySpellingLists=[];
+$mySpellingFiles = array() ;
+$mySpellingLists = array() ;
 
 //Find all existing Spelling files in the directory and add them to the SpellingList array $mySpellingFiles
 if ($handle = opendir($spellingFileDirectory)) {
@@ -25,72 +25,12 @@ if ($handle = opendir($spellingFileDirectory)) {
 		}
 	}
    }
-	
     closedir($handle);
 }
-/*
-//Create Audio from file ////////////////////////Test//////////////////////////////////////////////////////////////
-function downloadMP3($url,$file)
-{
-    $ch = curl_init();  
-    curl_setopt($ch,CURLOPT_URL,$url);
-    $res = curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-    ChromePhp::log($res);
-    $output=curl_exec($ch);
-    $output=curl_exec($ch);
-    ChromePhp::log("mp3 download:".$output);
-    curl_close($ch);
-	
-    if($output === false)   
-    return false;
- 
-    $fp= fopen($file,"wb");
-    fwrite($fp,$output);
-    fclose($fp);
- 
-    return true;
-}
-*/
-//downloadMP3("http://translate.google.com/translate_tts?ie=UTF-8&amp;tl=en&amp;q=seine","somemp3.mp3");
-/*
-//Create Audio from file ////////////////////////Test//////////////////////////////////////////////////////////////
-
- $text = "seine";
-
-// Name of the MP3 file generated using the MD5 hash
-   $file  = md5($text);
-
-// Save the MP3 file in this folder with the .mp3 extension 
-   $file = $file .".mp3";
-   if($file) {
-     echo "created";
-   } else {
-     echo "not created";
-   }
-
-// If the MP3 file exists, do not create a new request
-   if (!file_exists($file)) {
-//	$mp3 = false;
-//	while ($mp3 !== false) {
-		 $mp3 = file_get_contents(
-			'http://translate.google.com/translate_tts?q=' . $text);
-		 echo "hello";
-		 ChromePhp::log("mp3");
-		 ChromePhp::log($mp3);
-//		}
-     file_put_contents($file, $mp3);
-   } else {
-     echo "hii";
-   }
-
-*/
-
-
-
 
 function createSpellingListFromFile ($fileName) {
 	$myFile=fopen($fileName,"r+") or die("Unable to open file");
-	$locSpellingList=[];
+	$locSpellingList=array();
 	while(!feof($myFile)) {
 	  $readWord = fgets($myFile);
 	  array_push($locSpellingList, $readWord);
@@ -99,7 +39,7 @@ function createSpellingListFromFile ($fileName) {
 	return $locSpellingList;
 }
 
-if ($mySpellingFiles != []) {
+if ($mySpellingFiles != array()) {
 	for ($i=0; $i < count($mySpellingFiles); $i++) {
 		$locSpellingList = createSpellingListFromFile ($spellingFilePrefix . $mySpellingFiles[$i] . $spellingFileSuffix );
 		array_push($mySpellingLists, $locSpellingList);
@@ -110,8 +50,6 @@ if ($mySpellingFiles != []) {
 $firstValue = "Animals!!";
 //ChromePhp::log($mySpellingFiles);
 //ChromePhp::log($mySpellingLists);
-
-
 ?>
 <html>
   <head>
@@ -141,9 +79,7 @@ $firstValue = "Animals!!";
       <section>
 		
 		<ul id="spelling">
-			<li> <a href="AddWords.html">Create New List</a></li>
-			<p>or</p>
-			<li> Choose from list: 
+			<li> Choose a spelling list: 
 				<select name="spellingLists" id="spellingLists" value="Select from:">
 						<?php
 						for ($i=0; $i < count($mySpellingFiles); $i++) {
@@ -152,9 +88,9 @@ $firstValue = "Animals!!";
 						?>
 				</select>
 			</li>
-			<li> <a id="addWordsLink" href="AddWords.php">Add New Words</a></li>
-			<li> <a id="praticeWordsLink" ref="AddWords.php">Practice</a> </li>
-			<li> <a href="contact.html">View Spelling List </a></li>
+			<br> </br
+			<li> <a id="praticeWordsLink" href="AddWords.php">Practice</a> </li>
+			<li> <a id="viewWordsLink" href ="AddWords.php">View Spelling List </a></li>
 		</ul>
 
       </section>

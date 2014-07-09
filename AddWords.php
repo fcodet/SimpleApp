@@ -4,16 +4,16 @@
 <html>
 	
 	<?php
-	include('ChromePhp.php');
+	//include('ChromePhp.php');
 	//Pass the name of the list into a PHP variable
 	$spellingList=array();
 	$spellingListMp3s=array();
 	if (isset($_GET['mySpellingListName'])==true) {
 		$mySpellingListName =  $_GET['mySpellingListName'];
-		ChromePhp::log("Spelling List not empty!");	
+		//ChromePhp::log("Spelling List not empty!");	
 		//Create the actual PHP array containing the spelling words in the list from the file
 		$fileName = "SpellingList_" . $mySpellingListName . ".txt";
-		ChromePhp::log($fileName);
+		//ChromePhp::log($fileName);
 		$myFile=fopen($fileName,"r+") or die("Unable to open file");
 		while(!feof($myFile)) {
 		  $readWord = fgets($myFile);
@@ -30,9 +30,12 @@
 		//Get the mp3 pronunciation file from the web
 			//$wordUrl = 'http://www.macmillandictionary.com/dictionary/british/hello';
 			//$c = curl_init('http://www.macmillandictionary.com/dictionary/british/hello');
-			$wordUrl = "http://www.macmillandictionary.com/dictionary/british/".strtolower($readWord) ;
-			ChromePhp::log("LINK");
-			ChromePhp::log($wordUrl);
+			
+			//$wordUrl = "http://www.oxforddictionaries.com/definition/english/".strtolower($readWord)."?q=".strtolower($readWord) ; 
+			$wordUrl = "http://www.oxforddictionaries.com/definition/english/".$readWord."?q=".$readWord ; 
+			//$wordUrl = "http://www.macmillandictionary.com/dictionary/british/".strtolower($readWord) ; for McMillan
+			//ChromePhp::log("LINK");
+			//ChromePhp::log($wordUrl);
 			$c = curl_init($wordUrl);
 			
 			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
@@ -45,24 +48,24 @@
 			$status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 			$mp3linkpos0  = strpos($html, "data-src-mp3");
 			$mp3linkpos1  = strpos($html, "data-src-ogg");
-			ChromePhp::log($mp3linkpos0);
-			ChromePhp::log($mp3linkpos1);
-			ChromePhp::log($html[$mp3linkpos0+14]);
-			ChromePhp::log($html[$mp3linkpos1-3]);
+			//ChromePhp::log($mp3linkpos0);
+			//ChromePhp::log($mp3linkpos1);
+			//ChromePhp::log($html[$mp3linkpos0+14]);
+			//ChromePhp::log($html[$mp3linkpos1-3]);
 			$mp3link = substr($html, $mp3linkpos0+14, $mp3linkpos1-3 - ($mp3linkpos0+14)+1);
-			ChromePhp::log($mp3link);
+			//ChromePhp::log($mp3link);
 			curl_close($c);
 		array_push($spellingListMp3s, $mp3link);
 		//   
 		  
 		 }
 		fclose($myFile);
-		ChromePhp::log("in the loop");	
+		//ChromePhp::log("in the loop");	
 		}
-	ChromePhp::log("The spelling list size is : " . count($spellingList));
-	if (count($spellingList) != 0) {ChromePhp::log("Spelling list is not empty");
+	//ChromePhp::log("The spelling list size is : " . count($spellingList));
+	if (count($spellingList) != 0) {//ChromePhp::log("Spelling list is not empty");
 		} else {
-		ChromePhp::log("Spelling list empty");
+		//ChromePhp::log("Spelling list empty");
 		}
 	//Find out if we are in "addWord mode" or "practice mode"
 	if (isset($_GET['practice'])==true) {
@@ -97,7 +100,7 @@
 			else {
 				$echostring = "[];"; 
 			}
-			ChromePhp::log("echostring:"  .  $echostring);
+			//ChromePhp::log("echostring:"  .  $echostring);
 			echo $echostring;
 			?>
 			console.log("Javascript mySpellingList is not empty");
@@ -125,7 +128,7 @@
 			else {
 				$echostring = "[];"; 
 			}
-			ChromePhp::log("echostring:"  .  $echostring);
+			//ChromePhp::log("echostring:"  .  $echostring);
 			echo $echostring;
 			?>
 			console.log("Javascript spellingListMp3s is not empty");
